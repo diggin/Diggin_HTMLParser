@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+        <title>Simple Example of HTMLScraping and Ajax</title>
+        <script type="text/javascript">
+        <!--
+        function callXmlHttp(url) {
+            var form = document.getElementById("test_form");
+            var status = document.getElementById("test_status");
+            var container = document.getElementById("test_container");
+            form.url.value = url;
+            form.url.disabled = true;
+            form.submit.disabled = true;
+            status.innerHTML = "";
+            container.innerHTML = "";
+            var req = null;
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                try {
+                    req = new ActiveXObject("Msxml2.XMLHTTP");
+                } catch (e) {
+                    req = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }
+            if (req) {
+                req.onreadystatechange = function() {
+                    if (req.readyState == 4) {
+                        status.appendChild(document.createTextNode(" Done."));
+                        if ((req.status == 200 || req.status == 304) && req.responseXML) {
+                            var items = req.responseXML.getElementsByTagName("a");
+                            if (items.length > 0) {
+                                var olElement = document.createElement("ol");
+                                for (var i = 0; i < items.length; i++) {
+                                    var hrefVal = items[i].getAttribute("href");
+                                    if (hrefVal) {
+                                        hrefVal = hrefVal.replace(/&amp;/g, "&");
+                                        var liElement = document.createElement("li");
+                                        olElement.appendChild(liElement);
+                                        var aElement = document.createElement("a");
+                                        liElement.appendChild(aElement);
+                                        aElement.setAttribute("href", hrefVal);
+                                        aElement.onclick = new Function ("callXmlHttp(this.href);return false");
+                                        aElement.appendChild(document.createTextNode(hrefVal));
+                                    }
+                                }
+                                container.appendChild(olElement);
+                            } else {
+                                var pElement = document.createElement("p");
+                                container.appendChild(pElement);
+                                pElement.appendChild(document.createTextNode("No anchor element was found in the document."));
+                            }
+                            /*
+                            var pElement = document.createElement("p");
+                            container.appendChild(pElement);
+                            var serializer = new XMLSerializer();
+                            pElement.appendChild(document.createTextNode(serializer.serializeToString(req.responseXML)));
+                            */
+                        } else {
+                            var pElement = document.createElement("p");
+                            container.appendChild(pElement);
+                            if (req.responseText) {
+                                var pElement = document.createElement("p");
+                                container.appendChild(pElement);
+                                pElement.appendChild(document.createTextNode(req.responseText));
+                            } else {
+                                pElement.appendChild(document.createTextNode(req.status + " " + req.statusText));
+                            }
+                        }
+                        form.url.disabled = false;
+                        form.submit.disabled = false;
+                    }
+                }
+                var requestUrl = "test_ajax.php?url=" + encodeURIComponent(url);
+                req.open("GET", requestUrl, true);
+                req.send(null);
+                status.appendChild(document.createTextNode("Connecting " + requestUrl + "......"));
+            } else {
+                form.url.disabled = false;
+                form.submit.disabled = false;
+            }
+        }
+        //-->
+        </script>
+    </head>
+    <body>
+        <h1>Simple Example of HTMLScraping and Ajax</h1>
+        <form id="test_form" onsubmit="callXmlHttp(this.url.value);return false">
+            <p id="test_status">Submit a URL of a webpage.</p>
+            <div>
+                <input type="text" name="url" value="http://www.google.com/" size="50">
+                <input type="submit" name="submit">
+            </div>
+        </form>
+        <div id="test_container"></div>
+    </body>
+</html>
