@@ -3,7 +3,7 @@
     "description":"forked from HTMLParser.class.php",
     "keywords":["htmlparser"],
     "type":"library",
-    "license":"LGPL-2.1",
+    "license":"LGPL-2.1+",
     "authors":[
         {
             "name":"sasezaki",
