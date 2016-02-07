@@ -151,7 +151,7 @@ class HTMLParser
      * @return void
      * @access public
      */
-    function openHandler(&$parser, $name, $attribs)
+    function openHandler($parser, $name, $attribs)
     {
         $name = strtolower($name);
         // Do nothing if the element name is not defined.
@@ -197,7 +197,7 @@ class HTMLParser
      * @return void
      * @access public
      */
-    function closeHandler(&$parser, $name)
+    function closeHandler($parser, $name)
     {
         $name = strtolower(trim($name));
         // Do nothing if the element name is not defined
@@ -245,7 +245,7 @@ class HTMLParser
      * @return void
      * @access public
      */
-    function dataHandler(&$parser, $data)
+    function dataHandler($parser, $data)
     {
         $data = preg_replace('/^[\t\r\n]*(.*)[\t\r\n]*$/', '$1', $data);
         if (strlen($data) > 0) {
@@ -269,7 +269,7 @@ class HTMLParser
      * @return void
      * @access public
      */
-    function escapeHandler(&$parser, $data)
+    function escapeHandler($parser, $data)
     {
         $data = preg_replace('/^(-{2,}.*?)-*$/s', '$1--', $data);
         $this->current_construct .= "<!$data>";
@@ -283,7 +283,7 @@ class HTMLParser
      * @return void
      * @access public
      */
-    function piHandler(&$parser, $target, $data)
+    function piHandler($parser, $target, $data)
     {
     }
 
@@ -295,7 +295,7 @@ class HTMLParser
      * @return void
      * @access public
      */
-    function jaspHandler(&$parser, $data)
+    function jaspHandler($parser, $data)
     {
     }
 
