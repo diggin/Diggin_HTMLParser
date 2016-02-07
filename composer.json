@@ -1,0 +1,30 @@
+{
+    "name":"diggin/diggin-htmlparser",
+    "description":"forked from HTMLParser.class.php",
+    "keywords":["htmlparser"],
+    "type":"library",
+    "license":"LGPL-2.1+",
+    "authors":[
+        {
+            "name":"sasezaki",
+            "email":"sasezaki@gmail.com"
+        }
+    ],
+    "require":{
+        "php":">=5.5",
+        "diggin/diggin-htmlsax":"~1.0"
+    },
+    "require-dev":{
+        "phpunit/phpunit": "~4"
+    },
+    "autoload": {
+        "psr-4":{
+            "Diggin\\HTMLParser\\":"src/Diggin/HTMLParser/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DigginTest\\HTMLParser\\": "tests/DigginTest/HTMLParser/"
+        }
+    }
+}
