@@ -1,5 +1,9 @@
 <?php
 
+namespace Diggin\HTMLParser;
+
+use Diggin\HTMLSax\HTMLSax;
+
 /**
  * ---------------------------------------------------------------------
  * HTMLParser class
@@ -18,7 +22,6 @@
  * ---------------------------------------------------------------------
  */
 
-require_once('XML/HTMLSax3.php');
 
 /**
  * HTMLParser class
@@ -125,27 +128,12 @@ class HTMLParser
     );
 
     /**
-     * @access public
-     */
-    function HTMLParser()
-    {
-        $this->__construct();
-    }
-
-    /**
-     * @access public
-     */
-    function __construct()
-    {
-    }
-
-    /**
      * @param  string  $data
      * @access public
      */
     function parse($data)
     {
-        $parser = new XML_HTMLSax3;
+        $parser = new HTMLSax;
         $parser->set_object($this);
         $parser->set_element_handler('openHandler', 'closeHandler');
         $parser->set_data_handler('dataHandler');
@@ -739,5 +727,3 @@ class HTMLParser
         }
     }
 }
-
-?>
